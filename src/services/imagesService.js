@@ -14,21 +14,25 @@ export default class imagesService {
       MaxKeys: 1000
     };
 
-    return s3Client.listObjects(params, function(err, data) {
+    return s3Client.listObjects(params, function(err, s3Images) {
       if (err) console.log(err, err.stack);
-      else setImageList(imageUrls(data));
+      else setImageList(imageUrls(s3Images));
     })
   }
 
   create(file, callback) {
+    var params = {
+      Bucket: bucketName,
+      Key: file.name,
+      Expires: 60,
+      ContentType: file.type,
+      ACL: 'public-read',
+    };
+
     s3Client.getSignedUrl(
-      'putObject', {
-        Bucket: bucketName,
-        Key: file.name,
-        Expires: 60,
-        ContentType: file.type,
-        ACL: 'public-read',
-      }, (error, signedUrl) => {
+      'putObject',
+      params,
+      (error, signedUrl) => {
         callback({
           signedUrl,
         })

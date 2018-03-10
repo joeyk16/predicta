@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "aws-sdk": "^2.205.0",
-    "dotenv": "^5.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.9",

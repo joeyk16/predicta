@@ -31,8 +31,8 @@ class Home extends Component {
     })
   }
 
-  imageUrls(data) {
-    return data.Contents.map((image) =>
+  imageUrls(s3Images) {
+    return s3Images.Contents.map((image) =>
       `https://s3.amazonaws.com/predicta-app/${image.Key}`
     )
   }
