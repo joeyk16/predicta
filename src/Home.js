@@ -17,6 +17,8 @@ class Home extends Component {
 
   getSignedUrl = (file, callback) => {
     this.imagesService.create(file, callback)
+    // TODO: Remove reload and update state
+    window.location.reload();
   }
 
   imagesList() {
@@ -53,9 +55,10 @@ class Home extends Component {
             />
           </div>
         </section>
-
         <section>
-          { imageUrls  }
+          { imageUrls.map((url) =>
+              <img src={url} width="100"></img>
+          )}
         </section>
       </div>
     );

@@ -28,7 +28,6 @@ export default class imagesService {
         ContentType: file.type,
         ACL: 'public-read',
       }, (error, signedUrl) => {
-        console.log(signedUrl);
         callback({
           signedUrl,
         })
