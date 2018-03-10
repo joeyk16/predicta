@@ -1,7 +1,8 @@
 import AWS from 'aws-sdk';
+import { awsAccessKey, awsSecretKey } from '../config';
 AWS.config.region = 'us-east-1';
-AWS.config.accessKeyId = 'AKIAIVK5R4GYDQXHQKIQ';
-AWS.config.secretAccessKey = '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';
+AWS.config.accessKeyId = awsAccessKey;
+AWS.config.secretAccessKey = awsSecretKey;
 
 const s3Client = new AWS.S3();
 const bucketName = "predicta-app";

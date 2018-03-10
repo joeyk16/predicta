@@ -56,9 +56,15 @@ class Home extends Component {
           </div>
         </section>
         <section>
-          { imageUrls.map((url) =>
-              <img src={url} width="100"></img>
-          )}
+        <div className="row">
+          <div className="col-sm">
+            { imageUrls.map((url) =>
+                <a href={url} className="thumbnail">
+                  <img src={url} alt="..." width="100"></img>
+                </a>
+            )}
+          </div>
+          </div>
         </section>
       </div>
     );
