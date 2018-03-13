@@ -11,6 +11,11 @@ class Home extends Component {
     };
   }
 
+  componentWillMount() {
+    this.imagesService = new imagesService();
+    this.imagesList()
+  }
+
   onOpenModal = () => {
     this.setState({ open: true });
   };
@@ -18,11 +23,6 @@ class Home extends Component {
   onCloseModal = () => {
     this.setState({ open: false });
   };
-
-  componentWillMount() {
-    this.imagesService = new imagesService();
-    this.imagesList()
-  }
 
   getSignedUrl = (file, callback) => {
     this.imagesService.create(file, callback)
@@ -63,8 +63,10 @@ class Home extends Component {
         </section>
         <section>
           <div className="row">
-            { imageUrls.map((url) =>
+            { imageUrls.map((url, key) =>
               <Image
+                key={key}
+                imageKey={key}
                 url={url}
               >
               </Image>

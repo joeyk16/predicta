@@ -1,2 +1,4 @@
 export const awsAccessKey = ''
 export const awsSecretKey = ''
+export const clarifaiKey = ''
+export const clarifaiModel = 'Name Of Model'
