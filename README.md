@@ -20,3 +20,4 @@ If the highest percentage image is incorrect, you can add it to the negatives of
  3. Environment variables.
  4. Styling
  5. Flash messages
+ 6. Delete image
