@@ -16,14 +16,6 @@ class Home extends Component {
     this.imagesList()
   }
 
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
-
-  onCloseModal = () => {
-    this.setState({ open: false });
-  };
-
   getSignedUrl = (file, callback) => {
     this.imagesService.create(file, callback)
   }
@@ -48,8 +40,8 @@ class Home extends Component {
     const { imageUrls } = this.state;
     return (
       <div className="container">
-        <h1>Predicta</h1>
-        <section>
+        <h1 className="pb-2">Predicta</h1>
+        <section className="pb-4">
           <div className="dropzone">
             <ReactS3Uploader
               getSignedUrl={this.getSignedUrl.bind(this)}

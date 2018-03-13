@@ -10,7 +10,6 @@ const clarifaiClient = new Clarifai.App({
   apiKey: clarifaiKey,
  });
 
-
 class Image extends Component {
   static propTypes = {
     imageKey: T.number.isRequired,
@@ -19,7 +18,6 @@ class Image extends Component {
 
   constructor(props) {
     super(props)
-    console.log('props', props)
     this.state = {
       imageKey: props.imageKey,
       url: props.url,
@@ -30,14 +28,17 @@ class Image extends Component {
 
   onOpenModal = () => {
     const url = this.state.url
-    this.setState({ open: true });
 
     clarifaiClient.models.predict(clarifaiModel, [url])
       .then((response, err) =>
-        this.setState({
-          open: true,
-          tags: response.outputs[0].data.concepts,
-        })
+        { if (response.status.description === 'Ok') {
+          this.setState({
+            open: true,
+            tags: response.outputs[0].data.concepts,
+          })
+        } else {
+          // TODO: add flash error
+        }}
       )
   };
 
@@ -59,7 +60,10 @@ class Image extends Component {
             </div>
             <div className="col-6">
               { tags.map((tag) =>
-                <p>{tag.name} {tag.value}</p>
+                <div>
+                  <p className="font-weight-bold">{tag.name}</p>
+                  <p className="font-weight-light">{tag.value}%</p>
+                </div>
               )}
             </div>
           </div>
