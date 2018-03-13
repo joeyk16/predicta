@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import imagesService from './services/imagesService.js';
+import Image from './Image';
 const ReactS3Uploader = require('react-s3-uploader');
 
 class Home extends Component {
@@ -17,8 +18,6 @@ class Home extends Component {
 
   getSignedUrl = (file, callback) => {
     this.imagesService.create(file, callback)
-    // TODO: Remove reload and update state
-    window.location.reload();
   }
 
   imagesList() {
@@ -38,12 +37,11 @@ class Home extends Component {
   }
 
   render() {
-    const imageUrls = this.state.imageUrls
-
+    const { imageUrls } = this.state;
     return (
       <div className="container">
-        <h1>Predicta</h1>
-        <section>
+        <h1 className="pb-2">Predicta</h1>
+        <section className="pb-4">
           <div className="dropzone">
             <ReactS3Uploader
               getSignedUrl={this.getSignedUrl.bind(this)}
@@ -56,14 +54,14 @@ class Home extends Component {
           </div>
         </section>
         <section>
-        <div className="row">
-          <div className="col-sm">
-            { imageUrls.map((url) =>
-                <a href={url} className="thumbnail">
-                  <img src={url} alt="..." width="100"></img>
-                </a>
+          <div className="row">
+            { imageUrls.map((url, key) =>
+              <Image
+                key={key}
+                imageKey={key}
+                url={url}
+              />
             )}
-          </div>
           </div>
         </section>
       </div>
