@@ -19,3 +19,4 @@ If the highest percentage image is incorrect, you can add it to the negatives of
  2. Have multiple Clarifai models to train. At the moment you can just have 1.
  3. Environment variables.
  4. Styling
+ 5. Flash messages
