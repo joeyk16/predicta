@@ -22,7 +22,7 @@ class Image extends Component {
       imageKey: props.imageKey,
       url: props.url,
       open: false,
-      details: [],
+      concepts: [],
     };
   }
 
@@ -34,7 +34,7 @@ class Image extends Component {
         { if (response.status.description === 'Ok') {
           this.setState({
             open: true,
-            details: response.outputs[0].data.concepts,
+            concepts: response.outputs[0].data.concepts,
           })
         } else {
           // TODO: add flash error
@@ -47,7 +47,7 @@ class Image extends Component {
   };
 
   render() {
-    const { url, open, details, imageKey } = this.state;
+    const { url, open, concepts, imageKey } = this.state;
 
     return (
       <div className="col-sm" key={imageKey}>
@@ -58,10 +58,10 @@ class Image extends Component {
               <img src={url} alt="..." className="w-100"></img>
             </div>
             <div className="col-6">
-              { details.map((tag) =>
+              { concepts.map((concept) =>
                 <div>
-                  <p className="font-weight-bold">{tag.name}</p>
-                  <p className="font-weight-light">{tag.value}%</p>
+                  <p className="font-weight-bold">{concept.name}</p>
+                  <p className="font-weight-light">{concept.value}%</p>
                 </div>
               )}
             </div>
