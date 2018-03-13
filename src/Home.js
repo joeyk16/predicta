@@ -60,8 +60,7 @@ class Home extends Component {
                 key={key}
                 imageKey={key}
                 url={url}
-              >
-              </Image>
+              />
             )}
           </div>
         </section>

@@ -1,7 +1,7 @@
 import Modal from 'react-responsive-modal';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 
-import { PropTypes as T } from 'prop-types';
+import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
 
 import { clarifaiKey, clarifaiModel } from './config';
@@ -12,33 +12,33 @@ const clarifaiClient = new Clarifai.App({
 
 class Image extends Component {
   static propTypes = {
-    imageKey: T.number.isRequired,
-    url: T.string.isRequired,
+    imageKey: PropTypes.number.isRequired,
+    url: PropTypes.string.isRequired,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      imageKey: props.imageKey,
-      url: props.url,
       open: false,
       concepts: [],
     };
   }
 
   onOpenModal = () => {
-    const url = this.state.url
+    const url = this.props.url
 
     clarifaiClient.models.predict(clarifaiModel, [url])
       .then((response, err) =>
-        { if (response.status.description === 'Ok') {
-          this.setState({
-            open: true,
-            concepts: response.outputs[0].data.concepts,
-          })
-        } else {
+        {
+          if (response.status.description === 'Ok') {
+            this.setState({
+              open: true,
+              concepts: response.outputs[0].data.concepts,
+            })
+          } else {
           // TODO: add flash error
-        }}
+          }
+        }
       )
   };
 
@@ -47,7 +47,8 @@ class Image extends Component {
   };
 
   render() {
-    const { url, open, concepts, imageKey } = this.state;
+    const { open, concepts } = this.state;
+    const { url, imageKey } = this.props;
 
     return (
       <div className="col-sm" key={imageKey}>
@@ -55,7 +56,7 @@ class Image extends Component {
         <Modal open={open} onClose={this.onCloseModal} little>
           <div className="row">
             <div className="col-6">
-              <img src={url} alt="..." className="w-100"></img>
+              <img src={url} alt="..." className="w-100"/>
             </div>
             <div className="col-6">
               { concepts.map((concept) =>
