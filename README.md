@@ -18,6 +18,6 @@ If the highest percentage image is incorrect, you can add it to the negatives of
  1. Save an image to a negative on a Clarifai model.
  2. Have multiple Clarifai models to train. At the moment you can just have 1.
  3. Environment variables.
- 4. Styling
- 5. Flash messages
- 6. Delete image
+ 4. Styling.
+ 5. Flash messages.
+ 6. Delete image.
