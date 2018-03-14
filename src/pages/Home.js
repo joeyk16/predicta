@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import imagesService from './services/imagesService.js';
-import Image from './Image';
+import clarifaiApi from '../services/clarifaiApi.js';
+import imagesService from '../services/imagesService.js';
+import Image from '../components/Image';
 const ReactS3Uploader = require('react-s3-uploader');
 
 class Home extends Component {
@@ -8,12 +9,25 @@ class Home extends Component {
     super()
     this.state = {
       imageUrls: [],
+      modelConcepts: [],
     };
   }
 
   componentWillMount() {
     this.imagesService = new imagesService();
+    this.clarifaiApi =  new clarifaiApi()
+    this.modelConcepts()
     this.imagesList()
+  }
+
+  modelConcepts() {
+    this.clarifaiApi.modelConcepts(this.setModelConcepts)
+  }
+
+  setModelConcepts = (modelConcepts) => {
+    this.setState({
+      modelConcepts: modelConcepts,
+    })
   }
 
   getSignedUrl = (file, callback) => {
@@ -37,7 +51,8 @@ class Home extends Component {
   }
 
   render() {
-    const { imageUrls } = this.state;
+    const { imageUrls, modelConcepts } = this.state;
+
     return (
       <div className="container">
         <h1 className="pb-2">Predicta</h1>
@@ -60,6 +75,7 @@ class Home extends Component {
                 key={key}
                 imageKey={key}
                 url={url}
+                modelConcepts={modelConcepts}
               />
             )}
           </div>

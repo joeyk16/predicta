@@ -4,7 +4,9 @@ import 'react-responsive-modal/lib/react-responsive-modal.css';
 import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
 
-import { clarifaiKey, clarifaiModel } from './config';
+import ClarifaiNegatives from './ClarifaiNegatives'
+
+import { clarifaiKey, clarifaiModel } from '../config/secrets';
 const Clarifai = require('clarifai');
 const clarifaiClient = new Clarifai.App({
   apiKey: clarifaiKey,
@@ -14,6 +16,7 @@ class Image extends Component {
   static propTypes = {
     imageKey: PropTypes.number.isRequired,
     url: PropTypes.string.isRequired,
+    modelConcepts: PropTypes.array.isRequired,
   }
 
   constructor(props) {
@@ -48,7 +51,7 @@ class Image extends Component {
 
   render() {
     const { open, concepts } = this.state;
-    const { url, imageKey } = this.props;
+    const { url, imageKey, modelConcepts } = this.props;
 
     return (
       <div className="col-sm" key={imageKey}>
@@ -57,6 +60,10 @@ class Image extends Component {
           <div className="row">
             <div className="col-6">
               <img src={url} alt="..." className="w-100"/>
+              <ClarifaiNegatives
+                url={url}
+                modelConcepts={modelConcepts}
+              />
             </div>
             <div className="col-6">
               { concepts.map((concept) =>
