@@ -20,4 +20,22 @@ export default class clarifaiApi {
         cb(res.model.output_info.data.concepts)
       })
   };
+
+  trainNegative(imageUrl, modelConcept) {
+    clarifaiClient.inputs.create({
+      url: imageUrl,
+      concepts: [
+        {
+          id: modelConcept,
+          value: false
+        }
+      ]
+    })
+      .then((response, err) =>
+      {
+        console.log('res', response)
+      }
+    )
+  }
 }
+

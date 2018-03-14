@@ -55,13 +55,13 @@ class Image extends Component {
 
     return (
       <div className="col-sm" key={imageKey}>
-        <img onClick={this.onOpenModal} src={url} alt="..." width="100"></img>
+        <img className="img-thumbnail" onClick={this.onOpenModal} src={url} alt="..." width="120"></img>
         <Modal open={open} onClose={this.onCloseModal} little>
           <div className="row">
             <div className="col-6">
               <img src={url} alt="..." className="w-100"/>
               <ClarifaiNegatives
-                url={url}
+                imageUrl={url}
                 modelConcepts={modelConcepts}
               />
             </div>
@@ -69,7 +69,7 @@ class Image extends Component {
               { concepts.map((concept) =>
                 <div>
                   <p className="font-weight-bold">{concept.name}</p>
-                  <p className="font-weight-light">{concept.value}%</p>
+                  <p className="font-weight-light">{concept.value * 100}%</p>
                 </div>
               )}
             </div>
