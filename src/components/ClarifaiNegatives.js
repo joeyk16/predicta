@@ -1,6 +1,8 @@
 import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
 import clarifaiApi from '../services/clarifaiApi.js';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 export default class ClarifaiNegatives extends Component {
   static propTypes = {
@@ -26,10 +28,14 @@ export default class ClarifaiNegatives extends Component {
   }
 
   trainNegative = () => {
+    const modelConcept = this.state.modelConcept
+
     this.clarifaiApi.trainNegative(
       this.props.imageUrl,
       this.state.modelConcept
     )
+    // TODO: show notification on success and error
+    NotificationManager.success(`Imagent sent to ${modelConcept} as a negative`);
   }
 
   render() {
@@ -37,6 +43,7 @@ export default class ClarifaiNegatives extends Component {
 
     return(
       <div className="pt-4">
+        <NotificationContainer/>
         <div className="form-group">
           <label for="sel1">Select concept:</label>
           <select
