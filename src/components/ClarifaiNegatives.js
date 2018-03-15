@@ -32,33 +32,43 @@ export default class ClarifaiNegatives extends Component {
 
     this.clarifaiApi.trainNegative(
       this.props.imageUrl,
-      this.state.modelConcept
+      this.state.modelConcept,
+      this.flashMessage
     )
     // TODO: show notification on success and error
-    NotificationManager.success(`Imagent sent to ${modelConcept} as a negative`);
+
+  }
+
+  flashMessage(message, type) {
+    if (type === 'success') {
+      NotificationManager.success(message);
+    } else {
+      NotificationManager.error(message)
+    }
   }
 
   render() {
     const  modelConcepts = this.props.modelConcepts
 
+    console.log('modelConcepts', modelConcepts)
     return(
       <div className="pt-4">
         <NotificationContainer/>
         <div className="form-group">
-          <label for="sel1">Select concept:</label>
+          <label>Select concept:</label>
           <select
             className="form-control"
             id="sel1"
             onChange={this.setModelConcept}
           >
-            { modelConcepts.map(mc =>
-              <option>{mc.id}</option>
+            { modelConcepts.map((mc, i) =>
+              <option key={i}>{mc.id}</option>
             ) }
           </select>
         </div>
         <button
           type="button"
-          class="btn btn-primary"
+          className="btn btn-primary"
           onClick={this.trainNegative}
         >
           Train as negative

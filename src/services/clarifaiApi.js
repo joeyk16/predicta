@@ -21,21 +21,44 @@ export default class clarifaiApi {
       })
   };
 
-  trainNegative(imageUrl, modelConcept) {
-    clarifaiClient.inputs.create({
-      url: imageUrl,
-      concepts: [
-        {
-          id: modelConcept,
-          value: false
-        }
-      ]
+  trainNegative(url, modelConcept, cb) {
+    // TODO Refractor this
+    return fetch('https://api.clarifai.com/v2/inputs', {
+      method: "POST",
+      headers: new Headers({
+        'Authorization': `Key ${clarifaiKey}`,
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({
+        "inputs": [
+          {
+            "data": {
+              "image": {
+                "url": url
+              },
+              "concepts":[
+                {
+                  "id": modelConcept,
+                  "value": false
+                }
+              ]
+            }
+          }
+        ]
+      })
     })
-      .then((response, err) =>
-      {
-        console.log('res', response)
-      }
-    )
-  }
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        {
+          if (res.status.description === "Failure") {
+            cb(res.inputs[0].status.description, 'error')
+          } else {
+            cb('Negative image successfully sent', 'succcess')
+          }
+        }
+      })
+  };
 }
 

@@ -66,8 +66,8 @@ class Image extends Component {
               />
             </div>
             <div className="col-6">
-              { concepts.map((concept) =>
-                <div>
+              { concepts.map((concept, i) =>
+                <div key={i}>
                   <p className="font-weight-bold">{concept.name}</p>
                   <p className="font-weight-light">{concept.value * 100}%</p>
                 </div>
