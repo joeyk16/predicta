@@ -21,43 +21,39 @@ export default class clarifaiApi {
       })
   };
 
-  trainNegative(url, modelConcept, cb) {
-    // TODO Refractor this
+  trainModel(url, modelConcept, value) {
+    // TODO Refractor. Had to do a fetch. SDK didn't work.
+    const params = {
+      "inputs": [
+        {
+          "data": {
+            "image": {
+              "url": url
+            },
+            "concepts":[
+              {
+                "id": modelConcept,
+                "value": value
+              }
+            ]
+          }
+        }
+      ]
+    }
+
     return fetch('https://api.clarifai.com/v2/inputs', {
       method: "POST",
       headers: new Headers({
         'Authorization': `Key ${clarifaiKey}`,
         'Content-Type': 'application/json'
       }),
-      body: JSON.stringify({
-        "inputs": [
-          {
-            "data": {
-              "image": {
-                "url": url
-              },
-              "concepts":[
-                {
-                  "id": modelConcept,
-                  "value": false
-                }
-              ]
-            }
-          }
-        ]
-      })
+      body: JSON.stringify(params)
     })
       .then(res => {
         return res.json();
       })
       .then(res => {
-        {
-          if (res.status.description === "Failure") {
-            cb(res.inputs[0].status.description, 'error')
-          } else {
-            cb('Negative image successfully sent', 'succcess')
-          }
-        }
+        return res
       })
   };
 }

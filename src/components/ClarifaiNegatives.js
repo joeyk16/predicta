@@ -27,17 +27,27 @@ export default class ClarifaiNegatives extends Component {
     })
   }
 
-  trainNegative = () => {
+  trainModel = (value) => {
     const modelConcept = this.state.modelConcept
 
-    this.clarifaiApi.trainNegative(
+    this.clarifaiApi.trainModel(
       this.props.imageUrl,
       this.state.modelConcept,
-      this.flashMessage
+      value,
     )
+      .then(res => {
+        {
+          if (res.status.description === "Failure") {
+            this.flashMessage(res.inputs[0].status.description, 'error')
+          } else {
+            this.flashMessage('Image sent to your concept', 'success')
+          }
+        }
+      })
   }
 
   flashMessage(message, type) {
+    // TODO: Put into own component
     if (type === 'success') {
       NotificationManager.success(message);
     } else {
@@ -48,9 +58,8 @@ export default class ClarifaiNegatives extends Component {
   render() {
     const  modelConcepts = this.props.modelConcepts
 
-    console.log('modelConcepts', modelConcepts)
     return(
-      <div className="pt-4">
+      <div className="pb-4">
         <NotificationContainer/>
         <div className="form-group">
           <label>Select concept:</label>
@@ -66,8 +75,15 @@ export default class ClarifaiNegatives extends Component {
         </div>
         <button
           type="button"
-          className="btn btn-primary"
-          onClick={this.trainNegative}
+          className="btn btn-success mr-2"
+          onClick={() => this.trainModel(true)}
+        >
+          Train as positive
+        </button>
+        <button
+          type="button"
+          onClick={() => this.trainModel(false)}
+          className="btn btn-danger text-white"
         >
           Train as negative
         </button>
