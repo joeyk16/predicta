@@ -35,8 +35,6 @@ export default class ClarifaiNegatives extends Component {
       this.state.modelConcept,
       this.flashMessage
     )
-    // TODO: show notification on success and error
-
   }
 
   flashMessage(message, type) {
