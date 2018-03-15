@@ -55,7 +55,7 @@ class Image extends Component {
 
     return (
       <div className="col-sm" key={imageKey}>
-        <img className="img-thumbnail" onClick={this.onOpenModal} src={url} alt="..." width="120"></img>
+        <img className="img-thumbnail" onClick={this.onOpenModal} src={url} alt="..." width="150"></img>
         <Modal open={open} onClose={this.onCloseModal} little>
           <div className="row">
             <div className="col-6">

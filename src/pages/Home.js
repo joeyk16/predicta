@@ -50,6 +50,10 @@ class Home extends Component {
     )
   }
 
+  deleteImage(imageUrl) {
+    this.imagesService.delete(imageUrl)
+  }
+
   render() {
     const { imageUrls, modelConcepts } = this.state;
 
@@ -71,12 +75,21 @@ class Home extends Component {
         <section>
           <div className="row">
             { imageUrls.map((url, key) =>
-              <Image
-                key={key}
-                imageKey={key}
-                url={url}
-                modelConcepts={modelConcepts}
-              />
+              <div>
+                <Image
+                  key={key}
+                  imageKey={key}
+                  url={url}
+                  modelConcepts={modelConcepts}
+                />
+                <button
+                  type="button"
+                  className="btn btn-link"
+                  onClick={() => this.deleteImage(url)}
+                >
+                  Delete
+                </button>
+              </div>
             )}
           </div>
         </section>

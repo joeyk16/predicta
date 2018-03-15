@@ -39,4 +39,16 @@ export default class imagesService {
       }
     )
   }
+
+  delete(imageUrl) {
+    var params = {
+      Bucket: bucketName,
+      Key: imageUrl.replace(`https://s3.amazonaws.com/${bucketName}/`,'')
+    };
+
+    return s3Client.deleteObject(params, function(err, s3Images) {
+      if (err) console.log(err, err.stack);
+      else console.log('yes', s3Images);
+    })
+  }
 }
