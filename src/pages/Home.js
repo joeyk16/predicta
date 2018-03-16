@@ -51,7 +51,15 @@ class Home extends Component {
   }
 
   deleteImage(imageUrl) {
-    this.imagesService.delete(imageUrl)
+    this.imagesService.delete(imageUrl, this.imageDeleted)
+  }
+
+  imageDeleted = (imageUrl) => {
+    const imageUrls = this.state.imageUrls
+
+    this.setState({
+      imageUrls: imageUrls.filter(function(url) { return url !== imageUrl })
+    })
   }
 
   render() {
