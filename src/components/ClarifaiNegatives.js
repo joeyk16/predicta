@@ -1,7 +1,8 @@
 import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
 import clarifaiApi from '../services/clarifaiApi.js';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import FlashMessages from './common/FlashMessages.js';
+import { NotificationContainer } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 export default class ClarifaiNegatives extends Component {
@@ -19,6 +20,7 @@ export default class ClarifaiNegatives extends Component {
 
   componentDidMount() {
     this.clarifaiApi =  new clarifaiApi()
+    this.flashMessages =  new FlashMessages()
   }
 
   setModelConcept = (modelConcept) => {
@@ -38,20 +40,11 @@ export default class ClarifaiNegatives extends Component {
     )
       .then(res => {
         if (res.status.description === "Failure") {
-          this.flashMessage(res.inputs[0].status.description, 'error')
+          this.flashMessages.error(res.inputs[0].status.description)
         } else {
-          this.flashMessage('Image sent to your concept', 'success')
+          this.flashMessages.success('Image sent to your concept')
         }
       })
-  }
-
-  flashMessage(message, type) {
-    // TODO: Put into own component
-    if (type === 'success') {
-      NotificationManager.success(message);
-    } else {
-      NotificationManager.error(message)
-    }
   }
 
   render() {

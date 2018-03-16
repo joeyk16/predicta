@@ -1,7 +1,9 @@
+import { NotificationContainer } from 'react-notifications';
 import React, { Component } from 'react';
 import clarifaiApi from '../services/clarifaiApi.js';
 import imagesService from '../services/imagesService.js';
 import Image from '../components/Image';
+import FlashMessages from '../components/common/FlashMessages.js';
 const ReactS3Uploader = require('react-s3-uploader');
 
 class Home extends Component {
@@ -16,6 +18,8 @@ class Home extends Component {
   componentWillMount() {
     this.imagesService = new imagesService();
     this.clarifaiApi =  new clarifaiApi()
+    this.flashMessages =  new FlashMessages()
+
     this.modelConcepts()
     this.imagesList()
   }
@@ -60,6 +64,8 @@ class Home extends Component {
     this.setState({
       imageUrls: imageUrls.filter(function(url) { return url !== imageUrl })
     })
+
+    this.flashMessages.success('Image successfully deleted')
   }
 
   render() {
@@ -67,6 +73,7 @@ class Home extends Component {
 
     return (
       <div className="container">
+        <NotificationContainer/>
         <h1 className="pb-2">Predicta</h1>
         <section className="pb-4">
           <div className="dropzone">
