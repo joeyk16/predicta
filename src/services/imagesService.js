@@ -47,20 +47,8 @@ export default class imagesService {
     };
 
     return s3Client.deleteObject(params, function(err, data) {
-      if (err) console.log(err, err.stack); // an error occurred
-      else     cb(imageUrl);           // successful response
-    });          // successful response
+      if (err) console.log(err, err.stack);
+      else     cb(imageUrl);
+    });
   }
-
-  // delete(imageUrl) {
-  //   var params = {
-  //     Bucket: bucketName,
-  //     Key: imageUrl.replace(`https://s3.amazonaws.com/${bucketName}/`,'')
-  //   };
-
-  //   return s3Client.deleteObject(params, function(err, res) {
-  //     if (err) console.log(err, err.stack);
-  //     else res;
-  //   })
-  // }
 }
