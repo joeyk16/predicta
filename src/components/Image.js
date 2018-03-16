@@ -61,15 +61,15 @@ class Image extends Component {
             <div className="col-6">
               <img src={url} alt="..." className="w-100"/>
             </div>
-            <div className="col-6">
-              <div className="bg-light p-4 mb-4">
+            <div className="col-6" >
+              <div className="bg-light p-4">
                 <h3 className="pb-2">Train Model</h3>
                 <ClarifaiNegatives
                   imageUrl={url}
                   modelConcepts={modelConcepts}
                 />
               </div>
-              <div className="px-4">
+              <div className="mt-4 px-4 h-50 scroll">
                 <h3 className="pb-2">Results</h3>
                 { concepts.map((concept, i) =>
                   <div key={i}>
