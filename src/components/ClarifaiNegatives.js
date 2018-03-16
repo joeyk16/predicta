@@ -29,19 +29,18 @@ export default class ClarifaiNegatives extends Component {
 
   trainModel = (value) => {
     const modelConcept = this.state.modelConcept
+    const imageUrl = this.props.imageUrl
 
     this.clarifaiApi.trainModel(
-      this.props.imageUrl,
-      this.state.modelConcept,
+      imageUrl,
+      modelConcept,
       value,
     )
       .then(res => {
-        {
-          if (res.status.description === "Failure") {
-            this.flashMessage(res.inputs[0].status.description, 'error')
-          } else {
-            this.flashMessage('Image sent to your concept', 'success')
-          }
+        if (res.status.description === "Failure") {
+          this.flashMessage(res.inputs[0].status.description, 'error')
+        } else {
+          this.flashMessage('Image sent to your concept', 'success')
         }
       })
   }

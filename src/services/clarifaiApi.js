@@ -1,8 +1,4 @@
-import { clarifaiKey, clarifaiModel } from '../config/secrets';
-const Clarifai = require('clarifai');
-const clarifaiClient = new Clarifai.App({
-  apiKey: clarifaiKey,
-});
+import { clarifaiKey } from '../config/secrets';
 
 export default class clarifaiApi {
   modelConcepts(cb) {
