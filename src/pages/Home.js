@@ -5,6 +5,7 @@ import clarifaiApi from '../services/clarifaiApi.js';
 import imagesService from '../services/imagesService.js';
 import Image from '../components/Image';
 import FlashMessages from '../components/common/FlashMessages.js';
+var MdFileUpload = require('react-icons/lib/md/file-upload');
 
 class Home extends Component {
   constructor() {
@@ -95,9 +96,19 @@ class Home extends Component {
               className="jumbotron"
               onDrop={this.onDrop}
               name="hello"
-              >
-            <h3>Upload Files</h3>
-            <p>Drag and drop or click</p>
+            >
+              <div className="d-flex bd-highlight center justify-content-center">
+                <div className="bd-highlight">
+                  <MdFileUpload
+                    width="70"
+                    height="70"
+                  />
+                </div>
+                <div className="align-self-baseline bd-highlight">
+                  <h3>Upload Files</h3>
+                  <p>Drag and drop or click</p>
+                </div>
+              </div>
             </Dropzone>
           </section>
           <section>
