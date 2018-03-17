@@ -5,7 +5,7 @@ import clarifaiApi from '../services/clarifaiApi.js';
 import imagesService from '../services/imagesService.js';
 import Image from '../components/Image';
 import FlashMessages from '../components/common/FlashMessages.js';
-var MdFileUpload = require('react-icons/lib/md/file-upload');
+const MdFileUpload = require('react-icons/lib/md/file-upload');
 
 class Home extends Component {
   constructor() {
