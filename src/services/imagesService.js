@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk';
 import { awsAccessKey, awsSecretKey } from '../config/secrets';
+
 AWS.config.region = 'us-east-1';
 AWS.config.accessKeyId = awsAccessKey;
 AWS.config.secretAccessKey = awsSecretKey;

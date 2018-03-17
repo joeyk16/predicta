@@ -71,9 +71,9 @@ class Home extends Component {
   }
 
   addImageUrl = (imageUrl) => {
-    const imageUrls = this.state.imageUrls
-
     // TODO: imageUrls.map is not a function error
+    // const imageUrls = this.state.imageUrls
+
     // this.setState({
     //   imageUrls: imageUrls.push(imageUrl),
     // })
@@ -85,12 +85,12 @@ class Home extends Component {
 
     return (
       <div>
-      <nav class="navbar navbar-light bg-dark">
-        <span class="navbar-brand mb-0 h1 text-white">Predictah</span>
-      </nav>
-      <div className="container">
-        <NotificationContainer/>
-        <section className="py-4">
+        <nav className="navbar navbar-light bg-dark">
+          <span className="navbar-brand mb-0 h1 text-white">Predictah</span>
+        </nav>
+        <div className="container">
+          <NotificationContainer/>
+          <section className="py-4">
             <Dropzone
               className="jumbotron"
               onDrop={this.onDrop}
@@ -99,30 +99,30 @@ class Home extends Component {
             <h3>Upload Files</h3>
             <p>Drag and drop or click</p>
             </Dropzone>
-        </section>
-        <section>
-          <div className="row">
-            { imageUrls.map((url, key) =>
-              <div>
-                <Image
-                  key={key}
-                  imageKey={key}
-                  url={url}
-                  modelConcepts={modelConcepts}
-                  />
-                <button
-                  type="button"
-                  className="btn btn-link"
-                  onClick={() => this.deleteImage(url)}
-                  >
-                  Delete
-                </button>
-              </div>
-            )}
-          </div>
-        </section>
+          </section>
+          <section>
+            <div className="row">
+              { imageUrls.map((url, key) =>
+                <div>
+                  <Image
+                    key={key}
+                    imageKey={key}
+                    url={url}
+                    modelConcepts={modelConcepts}
+                    />
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    onClick={() => this.deleteImage(url)}
+                    >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
     );
   }
 }
