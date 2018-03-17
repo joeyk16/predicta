@@ -1,10 +1,10 @@
 import { NotificationContainer } from 'react-notifications';
+import Dropzone from 'react-dropzone'
 import React, { Component } from 'react';
 import clarifaiApi from '../services/clarifaiApi.js';
 import imagesService from '../services/imagesService.js';
 import Image from '../components/Image';
 import FlashMessages from '../components/common/FlashMessages.js';
-const ReactS3Uploader = require('react-s3-uploader');
 
 class Home extends Component {
   constructor() {
@@ -32,10 +32,6 @@ class Home extends Component {
     this.setState({
       modelConcepts: modelConcepts,
     })
-  }
-
-  getSignedUrl = (file, callback) => {
-    this.imagesService.create(file, callback)
   }
 
   imagesList() {
@@ -68,24 +64,41 @@ class Home extends Component {
     this.flashMessages.success('Image successfully deleted')
   }
 
+  onDrop = (acceptedFiles, rejectedFiles) => {
+    acceptedFiles.map(file =>
+      this.imagesService.upload(file, this.addImageUrl)
+    )
+  }
+
+  addImageUrl = (imageUrl) => {
+    const imageUrls = this.state.imageUrls
+
+    // TODO: imageUrls.map is not a function error
+    // this.setState({
+    //   imageUrls: imageUrls.push(imageUrl),
+    // })
+    this.flashMessages.success('Image succesfully uploaded')
+  }
+
   render() {
     const { imageUrls, modelConcepts } = this.state;
 
     return (
+      <div>
+      <nav class="navbar navbar-light bg-dark">
+        <span class="navbar-brand mb-0 h1 text-white">Predictah</span>
+      </nav>
       <div className="container">
         <NotificationContainer/>
-        <h1 className="pb-2">Predicta</h1>
-        <section className="pb-4">
-          <div className="dropzone">
-            <ReactS3Uploader
-              getSignedUrl={this.getSignedUrl.bind(this)}
-              accept="image/*"
-              uploadRequestHeaders={{
-                'x-amz-acl': 'public-read'
-              }}
-              contentDisposition="auto"
-            />
-          </div>
+        <section className="py-4">
+            <Dropzone
+              className="jumbotron"
+              onDrop={this.onDrop}
+              name="hello"
+              >
+            <h3>Upload Files</h3>
+            <p>Drag and drop or click</p>
+            </Dropzone>
         </section>
         <section>
           <div className="row">
@@ -96,12 +109,12 @@ class Home extends Component {
                   imageKey={key}
                   url={url}
                   modelConcepts={modelConcepts}
-                />
+                  />
                 <button
                   type="button"
                   className="btn btn-link"
                   onClick={() => this.deleteImage(url)}
-                >
+                  >
                   Delete
                 </button>
               </div>
@@ -109,6 +122,7 @@ class Home extends Component {
           </div>
         </section>
       </div>
+    </div>
     );
   }
 }

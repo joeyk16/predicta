@@ -20,24 +20,20 @@ export default class imagesService {
     })
   }
 
-  create(file, callback) {
+  upload(file, cb) {
     var params = {
       Bucket: bucketName,
+      Body: file,
       Key: file.name,
       Expires: 60,
       ContentType: file.type,
       ACL: 'public-read',
     };
 
-    s3Client.getSignedUrl(
-      'putObject',
-      params,
-      (error, signedUrl) => {
-        callback({
-          signedUrl,
-        })
-      }
-    )
+    s3Client.upload(params, function(err, data) {
+      if (err) console.log(err, err.stack);
+      else cb(data.Location);
+    });
   }
 
   delete(imageUrl, cb) {
