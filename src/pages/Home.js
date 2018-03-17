@@ -72,12 +72,9 @@ class Home extends Component {
   }
 
   addImageUrl = (imageUrl) => {
-    // TODO: imageUrls.map is not a function error
-    // const imageUrls = this.state.imageUrls
-
-    // this.setState({
-    //   imageUrls: imageUrls.push(imageUrl),
-    // })
+    const imageUrls = this.state.imageUrls
+    imageUrls.push(imageUrl)
+    this.setState({ imageUrls: imageUrls })
     this.flashMessages.success('Image succesfully uploaded')
   }
 
