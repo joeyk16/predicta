@@ -66,6 +66,7 @@ class Home extends Component {
   }
 
   onDrop = (acceptedFiles, rejectedFiles) => {
+    this.flashMessages.success(`${acceptedFiles.length} images uploading`)
     acceptedFiles.map(file =>
       this.imagesService.upload(file, this.addImageUrl)
     )
