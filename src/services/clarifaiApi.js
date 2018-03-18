@@ -1,7 +1,12 @@
-import { clarifaiKey } from '../config/secrets';
+import { clarifaiKey, clarifaiModel } from '../config/secrets';
+const Clarifai = require('clarifai');
+const clarifaiClient = new Clarifai.App({
+  apiKey: clarifaiKey,
+ });
 
 export default class clarifaiApi {
   modelConcepts(cb) {
+    // Fetch because there's no SDK for this
     return fetch('https://api.clarifai.com/v2/models/Taddar%20Vision/output_info', {
       method: "GET",
       headers: new Headers({
@@ -52,5 +57,15 @@ export default class clarifaiApi {
         return res
       })
   };
+
+  predict(url) {
+    return clarifaiClient.models.predict(clarifaiModel, [url])
+      .then((res, err) =>{
+          return res
+      })
+      .catch(function(err) {
+        return err
+      })
+  }
 }
 

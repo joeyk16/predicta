@@ -4,15 +4,12 @@ import 'react-responsive-modal/lib/react-responsive-modal.css';
 import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
 
-import ClarifaiNegatives from './ClarifaiNegatives'
+import FlashMessages from '../components/common/FlashMessages.js';
 
-import { clarifaiKey, clarifaiModel } from '../config/secrets';
-const Clarifai = require('clarifai');
-const clarifaiClient = new Clarifai.App({
-  apiKey: clarifaiKey,
- });
+import ClarifaiTrainer from './ClarifaiTrainer'
+import clarifaiApi from '../services/clarifaiApi.js';
 
-class Image extends Component {
+export default class Image extends Component {
   static propTypes = {
     imageKey: PropTypes.number.isRequired,
     url: PropTypes.string.isRequired,
@@ -27,22 +24,25 @@ class Image extends Component {
     };
   }
 
+  componentDidMount() {
+    this.clarifaiApi =  new clarifaiApi()
+    this.flashMessages =  new FlashMessages()
+  }
+
   onOpenModal = () => {
     const url = this.props.url
 
-    clarifaiClient.models.predict(clarifaiModel, [url])
-      .then((response, err) =>
-        {
-          if (response.status.description === 'Ok') {
-            this.setState({
-              open: true,
-              concepts: response.outputs[0].data.concepts,
-            })
-          } else {
-          // TODO: add flash error
-          }
+    this.clarifaiApi.predict(url)
+      .then(res => {
+        if (res.status.code === 10000) {
+          this.setState({
+            open: true,
+            concepts: res.outputs[0].data.concepts,
+          })
+        } else {
+          this.flashMessages.error(res.data.status.details)
         }
-      )
+      })
   };
 
   onCloseModal = () => {
@@ -64,7 +64,7 @@ class Image extends Component {
             <div className="col-6" >
               <div className="bg-light p-4">
                 <h3 className="pb-2">Train Model</h3>
-                <ClarifaiNegatives
+                <ClarifaiTrainer
                   imageUrl={url}
                   modelConcepts={modelConcepts}
                 />
@@ -85,5 +85,3 @@ class Image extends Component {
     );
   };
 }
-
-export default Image;

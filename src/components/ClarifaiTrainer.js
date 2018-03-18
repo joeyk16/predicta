@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import clarifaiApi from '../services/clarifaiApi.js';
 import FlashMessages from './common/FlashMessages.js';
 import { NotificationContainer } from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
 
-export default class ClarifaiNegatives extends Component {
+export default class ClarifaiTrainer extends Component {
   static propTypes = {
     imageUrl: PropTypes.string.isRequired,
     modelConcepts: PropTypes.array.isRequired,

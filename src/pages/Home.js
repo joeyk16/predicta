@@ -112,13 +112,12 @@ class Home extends Component {
           <section>
             <div className="row">
               { imageUrls.map((url, key) =>
-                <div>
+                <div key={key}>
                   <Image
-                    key={key}
                     imageKey={key}
                     url={url}
                     modelConcepts={modelConcepts}
-                    />
+                  />
                   <button
                     type="button"
                     className="btn btn-link"

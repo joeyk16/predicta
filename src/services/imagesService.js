@@ -9,20 +9,20 @@ const s3Client = new AWS.S3();
 const bucketName = "predicta-app";
 
 export default class imagesService {
-  index(imageUrls, setImageList) {
-    var params = {
+  index(imageUrls, cb) {
+    const params = {
       Bucket: bucketName,
       MaxKeys: 1000
     };
 
     return s3Client.listObjects(params, function(err, s3Images) {
       if (err) console.log(err, err.stack);
-      else setImageList(imageUrls(s3Images));
+      else cb(imageUrls(s3Images));
     })
   }
 
   upload(file, cb) {
-    var params = {
+    const params = {
       Bucket: bucketName,
       Body: file,
       Key: file.name,
@@ -38,14 +38,14 @@ export default class imagesService {
   }
 
   delete(imageUrl, cb) {
-    var params = {
+    const params = {
       Bucket: bucketName,
       Key: imageUrl.replace(`https://s3.amazonaws.com/${bucketName}/`,'')
     };
 
     return s3Client.deleteObject(params, function(err, data) {
       if (err) console.log(err, err.stack);
-      else     cb(imageUrl);
+      else cb(imageUrl);
     });
   }
 }
