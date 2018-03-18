@@ -2,9 +2,12 @@
 
 Use Predicta to train your [Clarifai](https://www.clarifai.com/) models to become more accurate.
 
-Just set up your `config.js` then upload your image to view the image concepts and their percentages.
+## How To Train Clarifai Model
 
-If the highest percentage image is incorrect, you can add it to the negatives of any concept in your model. Thus training your model to become more accurate.
+ 1. Upload images.
+ 2. Click on any image.
+ 3. View Clarifai predictions of your model.
+ 4. Add image as a positive or negative to any concept on your model.
 
 ## Dashboard
 
@@ -23,9 +26,6 @@ If the highest percentage image is incorrect, you can add it to the negatives of
 
 ## Future development
 
- 1. Save an image to a negative on a Clarifai model.
- 2. Have multiple Clarifai models to train. At the moment you can just have 1.
- 3. Environment variables.
- 4. Styling.
- 5. Flash messages.
- 6. Delete image.
+ 1. Have multiple Clarifai models to train. At the moment you can just have 1.
+ 2. Environment variables.
+ 3. Mass delete.
