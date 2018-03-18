@@ -85,7 +85,7 @@ class Home extends Component {
     return (
       <div>
         <nav className="navbar navbar-light bg-dark">
-          <span className="navbar-brand mb-0 h1 text-white">Predictah</span>
+          <span className="navbar-brand mb-0 h1 text-white">Predicta</span>
         </nav>
         <div className="container">
           <NotificationContainer/>

@@ -1,4 +1,4 @@
-# Predicta
+# Predict
 
 Use Predicta to train your [Clarifai](https://www.clarifai.com/) models to become more accurate.
 
