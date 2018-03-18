@@ -6,6 +6,14 @@ Just set up your `config.js` then upload your image to view the image concepts a
 
 If the highest percentage image is incorrect, you can add it to the negatives of any concept in your model. Thus training your model to become more accurate.
 
+## Dashboard
+
+![alt text](https://s3.amazonaws.com/public-joeyk/dashboard.png)
+
+## Training
+
+![alt text](https://s3.amazonaws.com/public-joeyk/training.png)
+
 ## Install
 
  1. `npm install`
