@@ -7,7 +7,7 @@ const clarifaiClient = new Clarifai.App({
 export default class clarifaiApi {
   modelConcepts(cb) {
     // Fetch because there's no SDK for this
-    return fetch('https://api.clarifai.com/v2/models/Taddar%20Vision/output_info', {
+    return fetch(`https://api.clarifai.com/v2/models/${escape(clarifaiModel)}/output_info`, {
       method: "GET",
       headers: new Headers({
         'Authorization': `Key ${clarifaiKey}`,
@@ -59,7 +59,7 @@ export default class clarifaiApi {
   };
 
   predict(url) {
-    return clarifaiClient.models.predict(clarifaiModel, [url])
+    return clarifaiClient.models.predict(clarifaiModel, [encodeURI(url)])
       .then((res, err) =>{
           return res
       })
@@ -68,4 +68,3 @@ export default class clarifaiApi {
       })
   }
 }
-
